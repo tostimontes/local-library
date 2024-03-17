@@ -1,0 +1,53 @@
+<%- include('layout') %>
+
+<div class="content">
+    <h1><%= title %></h1>
+
+    <form method="POST">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input id="title" class="form-control" type="text" placeholder="Name of book" name="title" required value="<%= book ? book.title : '' %>" />
+        </div>
+        <div class="form-group">
+            <label for="author">Author:</label>
+            <select id="author" class="form-control" name="author" required>
+                <option value="">--Please select an author--</option>
+                <% authors.forEach(function(authorItem) { %>
+                    <% if (book && authorItem._id.toString() === book.author._id.toString()) { %>
+                        <option value="<%= authorItem._id %>" selected><%= authorItem.name %></option>
+                    <% } else { %>
+                        <option value="<%= authorItem._id %>"><%= authorItem.name %></option>
+                    <% } %>
+                <% }); %>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="summary">Summary:</label>
+            <textarea id="summary" class="form-control" placeholder="Summary" name="summary" required><%= book ? book.summary : '' %></textarea>
+        </div>
+        <div class="form-group">
+            <label for="isbn">ISBN:</label>
+            <input id="isbn" class="form-control" type="text" placeholder="ISBN13" name="isbn" value="<%= book ? book.isbn : '' %>" required />
+        </div>
+        <div class="form-group">
+            <label>Genre:</label>
+            <div>
+                <% genres.forEach(function(genreItem) { %>
+                    <div style="display: inline; padding-right:10px;">
+                        <input class="checkbox-input" type="checkbox" name="genre" id="<%= genreItem._id %>" value="<%= genreItem._id %>" <%= genreItem.checked ? 'checked' : '' %> />
+                        <label for="<%= genreItem._id %>">&nbsp;<%= genreItem.name %></label>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+
+    <% if (errors) { %>
+        <ul>
+            <% errors.forEach(function(error) { %>
+                <li><%= error.msg %></li>
+            <% }); %>
+        </ul>
+    <% } %>
+</div>

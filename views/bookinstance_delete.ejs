@@ -1,0 +1,19 @@
+<%- include('layout') %>
+
+<div class="content">
+  <h1><%= title %>: <%= bookinstance._id %></h1>
+
+  <p>Do you really want to delete this Book Instance?</p>
+  <form method="POST">
+    <div class="form-group">
+      <input
+        id="bookinstanceid"
+        class="form-control"
+        type="hidden"
+        name="bookinstanceid"
+        value="<%= bookinstance._id %>"
+      />
+    </div>
+    <button class="btn btn-primary" type="submit">Delete</button>
+  </form>
+</div>
